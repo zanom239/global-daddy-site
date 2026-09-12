@@ -43,7 +43,8 @@ const IMG_YOGURT = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkGB
 const PRODUCTS = [
   { id: "big", name: "Big Parfait (500ml)", price: 12000, kind: "parfait", desc: "Greek yogurt layered with fresh fruit, in our full-size cup.", image: IMG_BIG },
   { id: "small", name: "Small Parfait (330ml)", price: 8000, kind: "parfait", desc: "The same layered parfait, in a smaller portion.", image: IMG_SMALL },
-  { id: "yogurt", name: "Plain Yoghurt (35cl & 50cl)", price: 2500, kind: "yoghurt", desc: "Our yoghurt on its own, unsweetened by fruit or toppings.", image: IMG_YOGURT },
+    { id: "yogurt35", name: "Plain Yoghurt (35cl)", price: 2000, kind: "yogurt", desc: "Yogurt on its own, unsweetened by fruit or toppings.", image: IMG_YOGURT },
+  { id: "yogurt50", name: "Plain Yoghurt (50cl)", price: 3000, kind: "yogurt", desc: "Yogurt on its own, unsweetened by fruit or toppings.", image: IMG_YOGURT },
 ];
 
 function naira(n) {
@@ -441,9 +442,12 @@ function MenuPage({ setPage, orderState }) {
         <div className="rounded-2xl border overflow-hidden max-w-md" style={{ borderColor: "#E7E2D4" }}>
           <img src={IMG_YOGURT} alt="Plain Yoghurt" className="w-full object-cover" style={{ aspectRatio: "4 / 3" }} />
           <div className="p-6">
-          <div className="flex items-baseline justify-between mb-2">
-            <div className="serif font-bold text-xl" style={{ color: NAVY }}>Plain Yoghurt (35cl &amp; 50cl)</div>
-            <div className="sans font-bold" style={{ color: GREEN_DARK }}>{naira(2500)}</div>
+                    <div className="mb-2">
+            <div className="serif font-bold text-xl mb-1" style={{ color: NAVY }}>Plain Yoghurt</div>
+            <div className="sans text-sm flex gap-4">
+              <span><span className="text-gray-500">35cl</span> <span className="font-bold" style={{ color: GREEN_DARK }}>{naira(2000)}</span></span>
+              <span><span className="text-gray-500">50cl</span> <span className="font-bold" style={{ color: GREEN_DARK }}>{naira(3000)}</span></span>
+            </div>
           </div>
           <p className="sans text-sm text-gray-600">Our yoghurt on its own — no fruit, no toppings.</p>
           </div>
