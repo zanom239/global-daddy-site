@@ -42,7 +42,7 @@ const IMG_YOGURT = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkGB
 
 const PRODUCTS = [
   { id: "big", name: "Big Parfait (500ml)", price: 12000, kind: "parfait", desc: "Greek yogurt layered with fresh fruit, in our full-size cup.", image: IMG_BIG },
-  { id: "small", name: "Small Parfait (330ml)", price: 8000, kind: "parfait", desc: "The same layered parfait, in a smaller portion.", image: IMG_SMALL },
+  { id: "small", name: "Small Parfait (330ml)", price: 8500, kind: "parfait", desc: "The same layered parfait, in a smaller portion.", image: IMG_SMALL },
     { id: "yogurt35", name: "Plain Yoghurt (35cl)", price: 2000, kind: "yogurt", desc: "Yogurt on its own, unsweetened by fruit or toppings.", image: IMG_YOGURT },
   { id: "yogurt50", name: "Plain Yoghurt (50cl)", price: 3000, kind: "yogurt", desc: "Yogurt on its own, unsweetened by fruit or toppings.", image: IMG_YOGURT },
 ];
