@@ -12,7 +12,7 @@ const CREAM = "#FBFAF6";
 const PHONES = ["07044990942", "09161003210", "08036785871"];
 const CHAT_PHONE = "2348036785871"; // direct WhatsApp chat number, formatted for WhatsApp
 const CHAT_LINK = `https://wa.me/${CHAT_PHONE}?text=${encodeURIComponent("Hi! I have a question about Global Daddy's Parfait & Yoghurt.")}`;
-const ADDRESS = "19, Chukwunike Edozie Avenue";
+const ADDRESS = "19, Chukwunwike Edozie Avenue";
 const FOUNDED = "27 August 2026";
 const EMAIL = "globaldparfait@gmail.com";
 const BANK_NAME = "Sterling Bank";
