@@ -19,7 +19,7 @@ const EMAIL = "globaldparfait@gmail.com";
 const BANK_NAME = "Sterling Bank";
 const ACCOUNT_NAME = "Amune Sireyami";
 const ACCOUNT_NUMBER = "0139682624";
-const PAYSTACK_PUBLIC_KEY = "pk_test_90c2a9a58203043137128318a33065027d51cff5";
+const PAYSTACK_PUBLIC_KEY = "pk_live_0cf949e1c17b9cab85651fa4a2449713302bcd8b";
 // True only once PAYSTACK_PUBLIC_KEY above is swapped for a real pk_live_... key.
 // Until then, the card payment option stays hidden so no one can be misled into
 // thinking a test-mode "payment" actually charged them.
