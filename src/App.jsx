@@ -28,7 +28,7 @@ const TIKTOK = { handle: "@globaldaddyparfait", label: "Global Daddy Parfait", u
 const INSTAGRAM = { handle: "@global_daddy_parfait", label: "Global Daddy", url: "https://www.instagram.com/global_daddy_parfait" };
 
 const FRUITS = ["Red apples", "Green apples", "Strawberries", "Blueberries", "Grapes", "Dates"];
-const TOPPINGS = ["Gummies", "Maltesers", "Cashew nuts", "Skittles"];
+const TOPPINGS = ["Gummies", "Maltesers", "Cashew nuts", "Skittles", "Granola"];
 
 /* Placeholder reviews — swap these for real customer quotes as they come in */
 const TESTIMONIALS = [
