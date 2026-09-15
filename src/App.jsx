@@ -1,6 +1,25 @@
 import React, { useState, useMemo } from "react";
 import { supabase } from "./supabaseClient";
-import { Leaf, MapPin, Phone, Mail, Clock, ShoppingBag, ChevronRight, ChevronLeft, Check, Minus, Plus, Menu as MenuIcon, X, AtSign, Video, Star, Users, MessageCircle } from "lucide-react";
+
+/* Instagram and TikTok icons — lucide-react doesn't ship brand logos, so these
+   are hand-drawn to match each platform's actual mark. */
+function InstagramIcon({ size = 20, style }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" style={style}>
+      <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" strokeWidth="2" />
+      <circle cx="12" cy="12" r="4.3" stroke="currentColor" strokeWidth="2" />
+      <circle cx="17.35" cy="6.65" r="1.15" fill="currentColor" />
+    </svg>
+  );
+}
+function TiktokIcon({ size = 20, style }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" style={style}>
+      <path d="M16.6 3c.4 2.2 1.9 3.9 4.1 4.2v3.1c-1.5.1-2.9-.4-4.1-1.2v6.4c0 3.3-2.7 6-6.1 6-3.3 0-6-2.7-6-6s2.7-6 6-6c.3 0 .6 0 .9.1v3.2c-.3-.1-.6-.2-.9-.2-1.6 0-2.9 1.3-2.9 2.9s1.3 2.9 2.9 2.9c1.6 0 3-1.3 3-2.9V3h3.1z" />
+    </svg>
+  );
+}
+import { Leaf, MapPin, Phone, Mail, Clock, ShoppingBag, ChevronRight, ChevronLeft, Check, Minus, Plus, Menu as MenuIcon, X, Star, Users, MessageCircle } from "lucide-react";
 
 /* ---------- Brand tokens, pulled from the Global Daddy product labels ---------- */
 const GREEN = "#2E8B4E";
@@ -80,6 +99,7 @@ function Logo({ size = 44 }) {
 
 function PageShell({ page, setPage, children, cartCount = 0 }) {
   const [navOpen, setNavOpen] = useState(false);
+  const [bannerVisible, setBannerVisible] = useState(true);
   const links = [
     ["home", "Home"],
     ["menu", "Menu"],
@@ -119,12 +139,48 @@ function PageShell({ page, setPage, children, cartCount = 0 }) {
         input, textarea { transition: border-color 0.2s ease, box-shadow 0.2s ease; }
         input:focus, textarea:focus { outline: none; border-color: ${GREEN}; box-shadow: 0 0 0 3px rgba(46,139,78,0.12); }
 
+        @keyframes marquee {
+          from { transform: translateX(100%); }
+          to { transform: translateX(-100%); }
+        }
+        .marquee-track {
+          display: inline-flex;
+          white-space: nowrap;
+          animation: marquee 14s linear infinite;
+        }
+        .marquee-wrap:hover .marquee-track {
+          animation-play-state: paused;
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .page-fade { animation: none; }
           .hover-lift, .press, .nav-link, input, textarea { transition: none; }
+          .marquee-track { animation: none; }
         }
       `}</style>
 
+
+      {/* Lead-time notice */}
+      {bannerVisible && (
+        <div className="sans marquee-wrap relative overflow-hidden" style={{ backgroundColor: NAVY }}>
+          <div className="marquee-track py-2.5">
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <Clock size={14} style={{ color: GOLD, flexShrink: 0 }} />
+              <span className="text-white text-xs sm:text-sm whitespace-nowrap">
+                Please place orders at least <span className="font-semibold" style={{ color: GOLD }}>24 hours ahead</span> — every parfait is made fresh, just for you.
+              </span>
+            </div>
+          </div>
+          <button
+            onClick={() => setBannerVisible(false)}
+            aria-label="Dismiss"
+            className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 text-white/50 hover:text-white press"
+            style={{ backgroundColor: NAVY }}
+          >
+            <X size={15} />
+          </button>
+        </div>
+      )}
 
       {/* Nav */}
       <header className="sticky top-0 z-30 bg-white border-b" style={{ borderColor: "#E7E2D4" }}>
@@ -219,10 +275,10 @@ function PageShell({ page, setPage, children, cartCount = 0 }) {
             </p>
             <div className="flex items-center gap-3 mt-4">
               <a href={INSTAGRAM.url} target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
-                <AtSign size={15} style={{ color: GOLD }} />
+                <InstagramIcon size={15} style={{ color: GOLD }} />
               </a>
               <a href={TIKTOK.url} target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(255,255,255,0.1)" }}>
-                <Video size={15} style={{ color: GOLD }} />
+                <TiktokIcon size={15} style={{ color: GOLD }} />
               </a>
             </div>
           </div>
@@ -668,14 +724,14 @@ function ContactPage() {
         </div>
         <div className="rounded-2xl border p-6" style={{ borderColor: "#E7E2D4" }}>
           <div className="flex items-center gap-2 mb-3">
-            <AtSign size={19} style={{ color: GREEN_DARK }} />
+            <InstagramIcon size={19} style={{ color: GREEN_DARK }} />
             <span className="serif font-bold" style={{ color: NAVY }}>Follow us</span>
           </div>
           <a href={INSTAGRAM.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 sans text-sm text-gray-700 mb-2 hover:underline">
-            <AtSign size={15} /> {INSTAGRAM.label} · {INSTAGRAM.handle}
+            <InstagramIcon size={15} /> {INSTAGRAM.label} · {INSTAGRAM.handle}
           </a>
           <a href={TIKTOK.url} target="_blank" rel="noreferrer" className="flex items-center gap-2 sans text-sm text-gray-700 hover:underline">
-            <Video size={15} /> {TIKTOK.label} · {TIKTOK.handle}
+            <TiktokIcon size={15} /> {TIKTOK.label} · {TIKTOK.handle}
           </a>
         </div>
       </div>
@@ -893,6 +949,20 @@ function OrderPage({ cartState, setPage }) {
   const [verifying, setVerifying] = useState(false);
   const [verifyError, setVerifyError] = useState(null);
   const [saveError, setSaveError] = useState(false);
+  const [showNotice, setShowNotice] = useState(() => {
+    try {
+      return sessionStorage.getItem("gd_lead_time_notice_seen") !== "true";
+    } catch {
+      return true;
+    }
+  });
+
+  function dismissNotice() {
+    setShowNotice(false);
+    try {
+      sessionStorage.setItem("gd_lead_time_notice_seen", "true");
+    } catch {}
+  }
 
   const lines = cart.map((item) => {
     const product = PRODUCTS.find((p) => p.id === item.productId);
@@ -1133,6 +1203,27 @@ function OrderPage({ cartState, setPage }) {
 
   return (
     <div className="max-w-2xl mx-auto px-5 py-14">
+      {showNotice && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-5" style={{ backgroundColor: "rgba(27,41,81,0.55)" }}>
+          <div className="rounded-2xl bg-white max-w-sm w-full p-7 text-center page-fade" style={{ boxShadow: "0 30px 60px -20px rgba(0,0,0,0.4)" }}>
+            <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5" style={{ backgroundColor: "#EAF5EC" }}>
+              <Clock size={24} style={{ color: GREEN_DARK }} />
+            </div>
+            <h2 className="serif text-xl font-bold mb-2" style={{ color: NAVY }}>Before you order</h2>
+            <p className="sans text-sm text-gray-600 leading-relaxed mb-6">
+              Everything is made fresh to order, so we kindly ask for at least <span className="font-semibold" style={{ color: NAVY }}>24 hours' notice</span> on
+              all orders. Thank you for your patience — it's what keeps every parfait tasting the way it should.
+            </p>
+            <button
+              onClick={dismissNotice}
+              className="w-full py-3 rounded-full font-semibold text-white sans hover-lift press"
+              style={{ backgroundColor: GREEN }}
+            >
+              Got it, continue
+            </button>
+          </div>
+        </div>
+      )}
       <h1 className="serif text-4xl font-bold mb-2" style={{ color: NAVY }}>Your order</h1>
       <p className="sans text-gray-600 mb-8">Review your items, then add your details below.</p>
 
