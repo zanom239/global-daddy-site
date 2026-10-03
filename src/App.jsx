@@ -77,6 +77,8 @@ const PROMO = {
   end: new Date(2026, 10, 1),   // 1 Nov 2026, 00:00 (so the last day is 31 Oct)
   prices: { big: 8000, small: 5000 }, // 500ml and 330ml parfaits
 };
+// Resets to false on every page load/reload, so the pop-up returns each time the site is opened
+let promoDismissedThisLoad = false;
 const PROMO_ACTIVE = (() => {
   const now = new Date();
   return now >= PROMO.start && now < PROMO.end;
@@ -418,20 +420,14 @@ function Home({ setPage }) {
     }
   });
 
-  // Independence Special pop-up: shows once per visit while the promo is running
-  const [showPromo, setShowPromo] = useState(() => {
-    try {
-      return PROMO_ACTIVE && sessionStorage.getItem("gd_promo_seen") !== "true";
-    } catch {
-      return PROMO_ACTIVE;
-    }
-  });
+  // Independence Special pop-up: shows every time the site is loaded or reloaded while the
+  // promo is running. The module-level flag stops it reappearing when someone simply
+  // navigates back to Home within the same page load.
+  const [showPromo, setShowPromo] = useState(() => PROMO_ACTIVE && !promoDismissedThisLoad);
 
   function dismissPromo(goToMenu = false) {
+    promoDismissedThisLoad = true;
     setShowPromo(false);
-    try {
-      sessionStorage.setItem("gd_promo_seen", "true");
-    } catch {}
     if (goToMenu) setPage("menu");
   }
 
